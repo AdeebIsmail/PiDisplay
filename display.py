@@ -28,6 +28,7 @@ def drawToScreen():
     try:
 
         # display the image
+        display.Clear()
         display.display(display.getbuffer(image))
 
     except IOError as e:

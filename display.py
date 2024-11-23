@@ -8,8 +8,27 @@ import schedule
 import requests
 import xml.etree.ElementTree as ET
 import asyncio
+import epd5in83_V2 as display
+import cairosvg
 
 namespaces = {'svg': 'http://www.w3.org/2000/svg'}
+
+
+def drawToScreen():
+    cairosvg.svg2png(url='updated_template.svg', write_to='output.png')
+    image = Image.open('output.png')
+    # try:
+    #     display = display.EPD()
+    #     display.init()
+
+    #     # display the image
+    #     display.display(display.getbuffer(image))
+
+    # except IOError as e:
+    #     print(e)
+
+    # finally:
+    #     display.sleep()
 
 
 def drawWeather(weatherData):
@@ -32,6 +51,7 @@ def drawWeather(weatherData):
     if element is not None:
         element.text = str(weatherData[2])
     tree.write('updated_template.svg')
+    drawToScreen()
 
 
 def drawPrayer(prayerData):
@@ -48,6 +68,7 @@ def drawPrayer(prayerData):
         if element is not None:
             element.text = prayerData[prayer]
     tree.write('updated_template.svg')
+    drawToScreen()
 
 
 def drawMusic(music_data):
@@ -90,6 +111,7 @@ def drawMusic(music_data):
         album_name.text = music_data[2]
 
     tree.write('updated_template.svg')
+    drawToScreen()
 
 
 def weatherJob():
@@ -117,5 +139,6 @@ schedule.every().day.at("08:00").do(weatherJob)
 schedule.every().day.at("12:00").do(weatherJob)
 schedule.every().day.at("18:00").do(weatherJob)
 schedule.every(3).minute.do(musicJob)
-while True:
-    schedule.run_pending()
+# while True:
+#     schedule.run_pending()
+drawToScreen()

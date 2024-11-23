@@ -71,7 +71,9 @@ def drawPrayer(prayerData):
 
     for prayer in prayerData.keys():
         element = root.find(f".//svg:*[@id='{prayer}']", namespaces)
+        print(prayer)
         if element is not None:
+
             element.text = prayerData[prayer]
     tree.write('updated_template.svg')
     drawToScreen()
@@ -144,10 +146,12 @@ def musicJob():
         drawMusic(music_data)
 
 
-schedule.every().day.at("06:00").do(prayerJob)
-schedule.every().day.at("08:00").do(weatherJob)
-schedule.every().day.at("12:00").do(weatherJob)
-schedule.every().day.at("18:00").do(weatherJob)
-schedule.every(2).seconds.do(musicJob)
+# schedule.every().day.at("06:00").do(prayerJob)
+# schedule.every().day.at("08:00").do(weatherJob)
+# schedule.every().day.at("12:00").do(weatherJob)
+# schedule.every().day.at("18:00").do(weatherJob)
+# schedule.every(2).seconds.do(musicJob)
+schedule.every(5).seconds.do(prayerJob)
+
 while True:
     schedule.run_pending()

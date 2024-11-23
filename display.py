@@ -12,6 +12,8 @@ import epd5in83_V2 as epd
 import cairosvg
 
 namespaces = {'svg': 'http://www.w3.org/2000/svg'}
+display = epd.EPD()
+display.init()
 
 
 def drawToScreen():
@@ -23,8 +25,6 @@ def drawToScreen():
     image = image.convert('1', dither=Image.NONE)
 
     try:
-        display = epd.EPD()
-        display.init()
 
         # display the image
         display.display(display.getbuffer(image))
@@ -144,6 +144,6 @@ schedule.every().day.at("08:00").do(weatherJob)
 schedule.every().day.at("12:00").do(weatherJob)
 schedule.every().day.at("18:00").do(weatherJob)
 schedule.every(3).minutes.do(musicJob)
-# while True:
-#     schedule.run_pending()
-drawToScreen()
+while True:
+    print("hello")
+    schedule.run_pending()

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="648" height="480" style="background-color: #ffffff; font-family: Arial, sans-serif;">
+
+    
+    <rect x="0" y="0" width="648" height="480" fill="#f4f4f8" />
+
+    
+    <text x="20" y="40" font-size="24" font-weight="bold" fill="#333">Weather</text>
+    <text x="20" y="80" font-size="18" fill="#333">Location: <tspan id="weather-location">College Station</tspan></text>
+    <text x="20" y="110" font-size="18" fill="#333">Temperature: <tspan id="weather-temp">74&#176;F</tspan></text>
+    <text x="20" y="140" font-size="18" fill="#333">Condition: <tspan id="weather-condition">Very Cloudy</tspan></text>
+    <image id="weather-icon" href="icon_url.png" x="200" y="60" width="60" height="60" />
+
+    
+    <line x1="230" y1="0" x2="230" y2="480" stroke="#ccc" stroke-width="1" />
+
+    
+    <text x="20" y="210" font-size="24" font-weight="bold" fill="#333">Prayer Times</text>
+    <text x="20" y="250" font-size="18" fill="#333">Fajr: <tspan id="fajr-time">--:-- AM</tspan></text>
+    <text x="20" y="280" font-size="18" fill="#333">Dhuhr: <tspan id="dhuhr-time">--:-- PM</tspan></text>
+    <text x="20" y="310" font-size="18" fill="#333">Asr: <tspan id="asr-time">--:-- PM</tspan></text>
+    <text x="20" y="340" font-size="18" fill="#333">Maghrib: <tspan id="maghrib-time">--:-- PM</tspan></text>
+    <text x="20" y="370" font-size="18" fill="#333">Isha: <tspan id="isha-time">--:-- PM</tspan></text>
+    <text x="20" y="460" font-size="12" fill="#333">Last updated: </text>
+
+    
+    <text x="240" y="40" font-size="24" font-weight="bold" fill="#333">Now Playing</text>
+
+    
+    <rect x="240" y="70" width="388" height="300" fill="#ddd" />
+    <image id="album-art" href="album_art_url.jpg" x="240" y="70" width="388" height="300" />
+
+    
+    <text x="240" y="390" font-size="18" font-weight="bold" fill="#333">Song:</text>
+    <text x="300" y="390" font-size="18" fill="#333">
+        <tspan id="song-name">Song Title</tspan>
+    </text>
+
+    <text x="240" y="420" font-size="18" font-weight="bold" fill="#333">Album:</text>
+    <text x="310" y="420" font-size="18" fill="#333">
+        <tspan id="album-name">Album Name</tspan>
+    </text>
+
+    <text x="240" y="450" font-size="18" font-weight="bold" fill="#333">Artist:</text>
+    <text x="300" y="450" font-size="18" fill="#333">
+        <tspan id="artist-name">Artist Name</tspan>
+    </text>
+
+</svg>

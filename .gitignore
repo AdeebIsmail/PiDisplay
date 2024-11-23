@@ -1,3 +1,6 @@
 /venv
 .env
 .cache
+/__pycache__
+album_image.bmp
+/data/__pycache__

@@ -109,15 +109,13 @@ def musicJob():
     print("Running Music Job...")
     music_data = musicData()
     if (music_data is not None):
-        print(music_data[0])
         drawMusic(music_data)
 
 
-# schedule.every().day.at("06:00").do(prayerJob)
-# schedule.every().day.at("08:00").do(weatherJob)
-# schedule.every().day.at("12:00").do(weatherJob)
-# schedule.every().day.at("18:00").do(weatherJob)
-# schedule.every(3).minute.do(musicJob)
-schedule.every(5).seconds.do(weatherJob)
+schedule.every().day.at("06:00").do(prayerJob)
+schedule.every().day.at("08:00").do(weatherJob)
+schedule.every().day.at("12:00").do(weatherJob)
+schedule.every().day.at("18:00").do(weatherJob)
+schedule.every(3).minute.do(musicJob)
 while True:
     schedule.run_pending()

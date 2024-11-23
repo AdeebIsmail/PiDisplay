@@ -8,27 +8,32 @@ import schedule
 import requests
 import xml.etree.ElementTree as ET
 import asyncio
-import epd5in83_V2 as display
+import epd5in83_V2 as epd
 import cairosvg
 
 namespaces = {'svg': 'http://www.w3.org/2000/svg'}
 
 
 def drawToScreen():
-    cairosvg.svg2png(url='updated_template.svg', write_to='output.png')
+    cairosvg.svg2png(url='updated_template.svg',
+                     write_to='output.png', dpi=300)
     image = Image.open('output.png')
-    # try:
-    #     display = display.EPD()
-    #     display.init()
+    threshold = 128
+    image = image.point(lambda p: p > threshold and 255)
+    image = image.convert('1', dither=Image.NONE)
 
-    #     # display the image
-    #     display.display(display.getbuffer(image))
+    try:
+        display = epd.EPD()
+        display.init()
 
-    # except IOError as e:
-    #     print(e)
+        # display the image
+        display.display(display.getbuffer(image))
 
-    # finally:
-    #     display.sleep()
+    except IOError as e:
+        print(e)
+
+    finally:
+        epd.sleep()
 
 
 def drawWeather(weatherData):

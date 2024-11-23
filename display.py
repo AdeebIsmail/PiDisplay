@@ -138,7 +138,7 @@ schedule.every().day.at("06:00").do(prayerJob)
 schedule.every().day.at("08:00").do(weatherJob)
 schedule.every().day.at("12:00").do(weatherJob)
 schedule.every().day.at("18:00").do(weatherJob)
-schedule.every(3).minute.do(musicJob)
+schedule.every(3).minutes.do(musicJob)
 # while True:
 #     schedule.run_pending()
 drawToScreen()

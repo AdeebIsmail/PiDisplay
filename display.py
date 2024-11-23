@@ -33,7 +33,7 @@ def drawToScreen():
         print(e)
 
     finally:
-        epd.sleep()
+        display.sleep()
 
 
 def drawWeather(weatherData):

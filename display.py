@@ -8,33 +8,33 @@ import schedule
 import requests
 import xml.etree.ElementTree as ET
 import asyncio
-# import epd5in83_V2 as epd
+import epd5in83_V2 as epd
 import cairosvg
 import base64
 
 namespaces = {'svg': 'http://www.w3.org/2000/svg'}
-# display = epd.EPD()
-# display.init()
+display = epd.EPD()
+display.init()
 
 
 def drawToScreen():
     cairosvg.svg2png(url='updated_template.svg',
                      write_to='output.png', dpi=300)
     image = Image.open('output.png')
-    # threshold = 128
-    # image = image.point(lambda p: p > threshold and 255)
-    # image = image.convert('1', dither=Image.NONE)
+    threshold = 128
+    image = image.point(lambda p: p > threshold and 255)
+    image = image.convert('1', dither=Image.NONE)
 
-    # try:
+    try:
 
-    #     # display the image
-    #     display.display(display.getbuffer(image))
+        # display the image
+        display.display(display.getbuffer(image))
 
-    # except IOError as e:
-    #     print(e)
+    except IOError as e:
+        print(e)
 
-    # finally:
-    #     display.sleep()
+    finally:
+        display.sleep()
 
 
 def drawWeather(weatherData):
@@ -146,12 +146,11 @@ def musicJob():
         drawMusic(music_data)
 
 
-# schedule.every().day.at("06:00").do(prayerJob)
-# schedule.every().day.at("08:00").do(weatherJob)
-# schedule.every().day.at("12:00").do(weatherJob)
-# schedule.every().day.at("18:00").do(weatherJob)
-# schedule.every(2).seconds.do(musicJob)
-schedule.every(5).seconds.do(prayerJob)
+schedule.every().day.at("06:00").do(prayerJob)
+schedule.every().day.at("08:00").do(weatherJob)
+schedule.every().day.at("12:00").do(weatherJob)
+schedule.every().day.at("18:00").do(weatherJob)
+schedule.every(30).seconds.do(musicJob)
 
 while True:
     schedule.run_pending()

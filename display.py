@@ -8,32 +8,33 @@ import schedule
 import requests
 import xml.etree.ElementTree as ET
 import asyncio
-import epd5in83_V2 as epd
+# import epd5in83_V2 as epd
 import cairosvg
+import base64
 
 namespaces = {'svg': 'http://www.w3.org/2000/svg'}
-display = epd.EPD()
-display.init()
+# display = epd.EPD()
+# display.init()
 
 
 def drawToScreen():
     cairosvg.svg2png(url='updated_template.svg',
                      write_to='output.png', dpi=300)
     image = Image.open('output.png')
-    threshold = 128
-    image = image.point(lambda p: p > threshold and 255)
-    image = image.convert('1', dither=Image.NONE)
+    # threshold = 128
+    # image = image.point(lambda p: p > threshold and 255)
+    # image = image.convert('1', dither=Image.NONE)
 
-    try:
+    # try:
 
-        # display the image
-        display.display(display.getbuffer(image))
+    #     # display the image
+    #     display.display(display.getbuffer(image))
 
-    except IOError as e:
-        print(e)
+    # except IOError as e:
+    #     print(e)
 
-    finally:
-        display.sleep()
+    # finally:
+    #     display.sleep()
 
 
 def drawWeather(weatherData):
@@ -95,8 +96,12 @@ def drawMusic(music_data):
     resized_image.save("album_image.png", format='PNG')
     element = root.find(f".//svg:image[@id='{'album-art'}']", namespaces)
 
+    with open("album_image.png", 'rb') as image_file:
+        encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+
     if element is not None:
-        element.set('href', 'album_image.png')
+        element.set('{http://www.w3.org/1999/xlink}href',
+                    f'data:image/png;base64,{encoded_image}')
 
     song_name = root.find(".//svg:*[@id='song-name']", namespaces)
 
@@ -143,7 +148,6 @@ schedule.every().day.at("06:00").do(prayerJob)
 schedule.every().day.at("08:00").do(weatherJob)
 schedule.every().day.at("12:00").do(weatherJob)
 schedule.every().day.at("18:00").do(weatherJob)
-schedule.every(3).minutes.do(musicJob)
+schedule.every(2).seconds.do(musicJob)
 while True:
-    print("hello")
     schedule.run_pending()

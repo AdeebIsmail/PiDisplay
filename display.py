@@ -8,7 +8,7 @@ import schedule
 import requests
 import xml.etree.ElementTree as ET
 import asyncio
-import epd5in83_V2 as epd
+import waveshare.epd5in83_V2 as epd
 import cairosvg
 import base64
 
@@ -16,9 +16,9 @@ namespaces = {'svg': 'http://www.w3.org/2000/svg'}
 
 
 def drawToScreen():
-    cairosvg.svg2png(url='updated_template.svg',
-                     write_to='output.png', dpi=300)
-    image = Image.open('output.png')
+    cairosvg.svg2png(url='images/updated_template.svg',
+                     write_to='images/output.png', dpi=300, scale=2.0)
+    image = Image.open('images/output.png')
     threshold = 128
     image = image.point(lambda p: p > threshold and 255)
     image = image.convert('1', dither=Image.NONE)
@@ -44,7 +44,7 @@ def drawWeather(weatherData):
     print(weatherData)
     default_ns = 'http://www.w3.org/2000/svg'
     ET.register_namespace('', default_ns)
-    tree = ET.parse('template.svg')
+    tree = ET.parse('images/updated_template.svg')
     root = tree.getroot()
     namespaces = {'svg': 'http://www.w3.org/2000/svg'}
     element = root.find(f".//svg:*[@id='{'weather-temp'}']", namespaces)
@@ -58,7 +58,7 @@ def drawWeather(weatherData):
     element = root.find(f".//svg:*[@id='{'weather-condition'}']", namespaces)
     if element is not None:
         element.text = str(weatherData[2])
-    tree.write('updated_template.svg')
+    tree.write('images/updated_template.svg')
     drawToScreen()
 
 
@@ -67,7 +67,7 @@ def drawPrayer(prayerData):
 
     default_ns = 'http://www.w3.org/2000/svg'
     ET.register_namespace('', default_ns)
-    tree = ET.parse('updated_template.svg')
+    tree = ET.parse('images/updated_template.svg')
     root = tree.getroot()
     namespaces = {'svg': 'http://www.w3.org/2000/svg'}
 
@@ -77,7 +77,7 @@ def drawPrayer(prayerData):
         if element is not None:
 
             element.text = prayerData[prayer]
-    tree.write('updated_template.svg')
+    tree.write('images/updated_template.svg')
     drawToScreen()
 
 
@@ -87,7 +87,7 @@ def drawMusic(music_data):
 
     default_ns = 'http://www.w3.org/2000/svg'
     ET.register_namespace('', default_ns)
-    tree = ET.parse('updated_template.svg')
+    tree = ET.parse('images/updated_template.svg')
     root = tree.getroot()
     namespaces = {'svg': 'http://www.w3.org/2000/svg'}
 
@@ -97,10 +97,10 @@ def drawMusic(music_data):
     bw_image = image.convert('1')
 
     resized_image = bw_image.resize((388, 300))  # Example size (300x300)
-    resized_image.save("album_image.png", format='PNG')
+    resized_image.save("images/album_image.png", format='PNG')
     element = root.find(f".//svg:image[@id='{'album-art'}']", namespaces)
 
-    with open("album_image.png", 'rb') as image_file:
+    with open("images/album_image.png", 'rb') as image_file:
         encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
 
     if element is not None:
@@ -124,7 +124,7 @@ def drawMusic(music_data):
     if album_name is not None:
         album_name.text = music_data[2]
 
-    tree.write('updated_template.svg')
+    tree.write('images/updated_template.svg')
     drawToScreen()
 
 

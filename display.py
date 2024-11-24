@@ -13,8 +13,6 @@ import cairosvg
 import base64
 
 namespaces = {'svg': 'http://www.w3.org/2000/svg'}
-display = epd.EPD()
-display.init()
 
 
 def drawToScreen():
@@ -26,9 +24,12 @@ def drawToScreen():
     image = image.convert('1', dither=Image.NONE)
 
     try:
+        display = epd.EPD()
+
+        display.init()
 
         # display the image
-        display.Clear()
+        # display.Clear()
         display.display(display.getbuffer(image))
 
     except IOError as e:

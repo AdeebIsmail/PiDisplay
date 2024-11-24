@@ -17,7 +17,7 @@ namespaces = {'svg': 'http://www.w3.org/2000/svg'}
 
 def drawToScreen():
     cairosvg.svg2png(url='images/updated_template.svg',
-                     write_to='images/output.png', dpi=300, scale=2.0)
+                     write_to='images/output.png', dpi=300)
     image = Image.open('images/output.png')
     threshold = 128
     image = image.point(lambda p: p > threshold and 255)

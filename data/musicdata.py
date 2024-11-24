@@ -25,9 +25,9 @@ def musicData():
     song_info = sp.current_playback(market='US')
     if (song_info is None):
         return None
-    song_name = song_info['item']['name']
-    if (song_name is None):
+    if (song_info['item']['name'] is None):
         return None
+    song_name = song_info['item']['name']
     song_album_name = song_info['item']['album']['name']
     song_art = song_info['item']['album']['images'][1]
     song_artists = song_info['item']['artists']

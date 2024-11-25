@@ -4,7 +4,12 @@
 
 A simple E-Ink display that shows weather, Spotify, and prayer data information.
 
-# Setup
+# Hardware
+* Raspberry Pi Zero W/WH
+* Waveshare 5.83inch E-Paper E-Ink Display  
+
+
+# Software
 1. Clone the repository:
 
     ```bash

@@ -9,16 +9,6 @@ load_dotenv()
 api_key = os.getenv('WEATHER_KEY')
 
 
-# async def getWeatherType():
-#     async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
-#         weather = await client.get('College Station')
-#         temp = weather.temperature
-#         location = weather.location + ", " + weather.region
-#         kind = weather.kind
-#         emoji = weather.kind.emoji
-#         return [temp, location, str(kind), emoji]
-
-
 def getWeatherType():
     CITY = 'College Station'
 
@@ -27,16 +17,25 @@ def getWeatherType():
         'query': CITY,
         'units': 'f'
     }
-    response = requests.get(
-        'http://api.weatherstack.com/current', params=params)
 
-    if response.status_code == 200:
+    try:
+        response = requests.get(
+            'http://api.weatherstack.com/current', params=params)
+        response.raise_for_status()
+
         data = response.json()
+
+        if 'current' not in data:
+            print("Error: 'current' key not found in response")
+            print("Response content:", data)
+            return None
+
         temperature = data['current']['temperature']
         weather_condition = data['current']['weather_descriptions'][0]
-        print(f"Temperature: {temperature}°C")
+        print(f"Temperature: {temperature}°F")
         print(f"Weather condition: {weather_condition}")
         return [temperature, CITY, weather_condition]
-    else:
-        print("Error fetching data:", response.status_code)
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching weather data: {e}")
         return None

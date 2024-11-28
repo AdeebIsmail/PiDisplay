@@ -9,55 +9,34 @@ load_dotenv()
 api_key = os.getenv('WEATHER_KEY')
 
 
-async def getWeatherType():
-    async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
-        weather = await client.get('College Station')
-        temp = weather.temperature
-        location = weather.location + ", " + weather.region
-        kind = weather.kind
-        emoji = weather.kind.emoji
-        return [temp, location, str(kind), emoji]
+# async def getWeatherType():
+#     async with python_weather.Client(unit=python_weather.IMPERIAL) as client:
+#         weather = await client.get('College Station')
+#         temp = weather.temperature
+#         location = weather.location + ", " + weather.region
+#         kind = weather.kind
+#         emoji = weather.kind.emoji
+#         return [temp, location, str(kind), emoji]
 
 
-# def currentTemperature():
-#     url = "https://api.tomorrow.io/v4/weather/realtime?"
+def getWeatherType():
+    CITY = 'College Station'
 
-#     querystring = {
-#         "location": "College Station",
-#         'units': 'imperial',
-#         "apikey": api_key}
+    params = {
+        'access_key': api_key,
+        'query': CITY,
+        'units': 'f'
+    }
+    response = requests.get(
+        'http://api.weatherstack.com/current', params=params)
 
-#     response = requests.request("GET", url, params=querystring)
-#     data = response.json()
-#     # print(json.dumps(data, indent=4))
-#     temperature = data['data']['values']['temperature']
-#     # humidity = data.get['data']['values']['humidity']
-#     # wind_speed = data.get['data']['values']['rainIntensity']
-#     return temperature
-
-
-# def upcomingForcast():
-#     url = "https://api.tomorrow.io/v4/weather/forecast?"
-
-#     querystring = {
-#         "location": "College Station",
-#         'units': 'imperial',
-#         "apikey": api_key,
-#         "daily": "1d"}
-
-#     response = requests.request("GET", url, params=querystring)
-#     data = response.json()
-#     print(json.dumps(data, indent=4))
-#     daily_data = data.get('timelines', {}).get('daily', [])
-#     for day in daily_data:
-#         time = day.get('time')
-#         values = day.get('values', {})
-#         temperature_avg = values.get('temperatureAvg')
-#         humidity_avg = values.get('humidityAvg')
-#         wind_speed_avg = values.get('windSpeedAvg')
-
-#         print(f"Date: {time}")
-#         print(f"Average Temperature: {temperature_avg}")
-#         print(f"Average Humidity: {humidity_avg}")
-#         print(f"Average Wind Speed: {wind_speed_avg}")
-#         print("-" * 20)
+    if response.status_code == 200:
+        data = response.json()
+        temperature = data['current']['temperature']
+        weather_condition = data['current']['weather_descriptions'][0]
+        print(f"Temperature: {temperature}°C")
+        print(f"Weather condition: {weather_condition}")
+        return [temperature, CITY, weather_condition]
+    else:
+        print("Error fetching data:", response.status_code)
+        return None

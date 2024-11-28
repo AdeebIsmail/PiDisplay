@@ -7,7 +7,6 @@ from io import BytesIO
 import schedule
 import requests
 import xml.etree.ElementTree as ET
-import asyncio
 import waveshare.epd5in83_V2 as epd
 import cairosvg
 import base64
@@ -25,11 +24,7 @@ def drawToScreen():
 
     try:
         display = epd.EPD()
-
         display.init()
-
-        # display the image
-        # display.Clear()
         display.display(display.getbuffer(image))
 
     except IOError as e:
@@ -130,8 +125,7 @@ def drawMusic(music_data):
 
 def weatherJob():
     print("Running Weather Job...")
-    weather_type = asyncio.run(getWeatherType())
-    # weather_type = currentTemperature()
+    weather_type = getWeatherType()
     drawWeather(weather_type)
 
 

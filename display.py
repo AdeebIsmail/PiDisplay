@@ -1,4 +1,5 @@
 
+import datetime
 from data.weatherdata import getWeatherType
 from data.musicdata import musicData
 from data.prayerdata import prayerData
@@ -77,7 +78,8 @@ def drawPrayer(prayerData):
 
 
 def drawMusic(music_data):
-    print("Drawing Music...")
+    print("Drawing Music..." +
+          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     url = music_data[-1]['url']
 
     default_ns = 'http://www.w3.org/2000/svg'
@@ -124,19 +126,22 @@ def drawMusic(music_data):
 
 
 def weatherJob():
-    print("Running Weather Job...")
+    print("Running Weather Job..." +
+          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     weather_type = getWeatherType()
     drawWeather(weather_type)
 
 
 def prayerJob():
-    print("Running Prayer Job...")
+    print("Running Prayer Job..." +
+          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     prayer_data = prayerData()
     drawPrayer(prayer_data)
 
 
 def musicJob():
-    print("Running Music Job...")
+    print("Running Music Job..." +
+          datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     music_data = musicData()
     if (music_data is not None):
         drawMusic(music_data)

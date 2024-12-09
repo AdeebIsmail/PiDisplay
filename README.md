@@ -13,8 +13,8 @@ A simple E-Ink display that shows weather, Spotify, and prayer data information.
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/AdeebIsmail/piDisplay.git
-    cd piDisplay
+    git clone https://github.com/AdeebIsmail/PiDisplay.git
+    cd PiDisplay
     ```
 2. Install dependencies:
     ```bash

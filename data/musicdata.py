@@ -50,7 +50,7 @@ def musicData():
 
         return [song_name, song_artists_list, song_album_name, song_art]
 
-    except requests.exceptions.ReadTimeout:
-        print("Request to Spotify API timed out.")
+    except Exception as e:
+        print(f"Request to Spotify API timed out.: {e}")
         time.sleep(60)
         return None

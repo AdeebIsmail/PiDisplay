@@ -7,17 +7,21 @@ from datetime import datetime
 
 
 def prayerData():
-    url = "https://api.aladhan.com/v1/timingsByCity?"
+    try:
+        url = "https://api.aladhan.com/v1/timingsByCity?"
 
-    current_date = datetime.now()
-    formatted_date = current_date.strftime("%d-%m-%Y")
+        current_date = datetime.now()
+        formatted_date = current_date.strftime("%d-%m-%Y")
 
-    querystring = {
-        "date": formatted_date,
-        'city': 'College+Station',
-        "country": "United+States+America"}
+        querystring = {
+            "date": formatted_date,
+            'city': 'College+Station',
+            "country": "United+States+America"}
 
-    response = requests.request("GET", url, params=querystring)
-    data = response.json()
-    prayers = data['data']['timings']
-    return prayers
+        response = requests.request("GET", url, params=querystring)
+        data = response.json()
+        prayers = data['data']['timings']
+        return prayers
+    except Exception as e:
+        print(f"Error fetching prayer data: {e}")
+        return None

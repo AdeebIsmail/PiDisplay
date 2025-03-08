@@ -129,7 +129,8 @@ def weatherJob():
     print("Running Weather Job..." +
           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     weather_type = getWeatherType()
-    drawWeather(weather_type)
+    if (weather_type is not None):
+        drawWeather(weather_type)
 
 
 def prayerJob():

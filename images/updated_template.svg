@@ -23,7 +23,7 @@
     <text x="20" y="310" font-size="18" fill="black">Asr: <tspan id="Asr">15:05</tspan></text>
     <text x="20" y="340" font-size="18" fill="black">Maghrib: <tspan id="Maghrib">17:25</tspan></text>
     <text x="20" y="370" font-size="18" fill="black">Isha: <tspan id="Isha">18:35</tspan></text>
-    <text x="20" y="460" font-size="12" fill="black">Last updated: </text>
+    <text x="20" y="460" font-size="12" fill="black">Last updated: <tspan id="Updated-time">18:35</tspan></text>
 
 
     <text x="240" y="40" font-size="24" font-weight="bold" fill="black">Now Playing</text>

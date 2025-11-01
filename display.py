@@ -54,6 +54,10 @@ def drawWeather(weatherData):
     element = root.find(f".//svg:*[@id='{'weather-condition'}']", namespaces)
     if element is not None:
         element.text = str(weatherData[2])
+    element = root.find(
+        f".//svg:*[@id='{'Updated-time'}']", namespaces)
+    if element is not None:
+        element.text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     tree.write('images/updated_template.svg')
     drawToScreen()
 

@@ -75,8 +75,11 @@ def drawPrayer(prayerData):
         element = root.find(f".//svg:*[@id='{prayer}']", namespaces)
         print(prayer)
         if element is not None:
-
             element.text = prayerData[prayer]
+    element = root.find(
+        f".//svg:*[@id='{'Updated-time'}']", namespaces)
+    if element is not None:
+        element.text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     tree.write('images/updated_template.svg')
     drawToScreen()
 
@@ -125,6 +128,10 @@ def drawMusic(music_data):
     if album_name is not None:
         album_name.text = music_data[2]
 
+    element = root.find(
+        f".//svg:*[@id='{'Updated-time'}']", namespaces)
+    if element is not None:
+        element.text = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     tree.write('images/updated_template.svg')
     drawToScreen()
 

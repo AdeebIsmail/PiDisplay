@@ -87,7 +87,7 @@ def drawPrayer(prayerData):
 def drawMusic(music_data):
     print("Drawing Music..." +
           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    url = music_data[-1]['url']
+    url = music_data[-1]
 
     default_ns = 'http://www.w3.org/2000/svg'
     ET.register_namespace('', default_ns)

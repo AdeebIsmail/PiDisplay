@@ -1,7 +1,7 @@
 #!/bin/bash
 export PATH=$PATH:/usr/bin:/bin
 VENV_PATH="myenv"
-# sudo ./monitor_python.sh > cron.log
+# sudo ./monitor_python.sh >> cron.log
 PROGRAM="display.py"
 
 LOG_FILE="program.log"

@@ -32,7 +32,7 @@ def musicData():
             return None
 
         song_name = track.title
-        song_artist = track.artist
+        song_artist = track.artist.name
         song_album = track.get_album()
 
         if prev_song_name == song_name:

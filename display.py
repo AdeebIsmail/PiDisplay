@@ -85,6 +85,7 @@ def drawPrayer(prayerData):
 
 
 def drawMusic(music_data):
+
     print("Drawing Music..." +
           datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     url = music_data[-1]

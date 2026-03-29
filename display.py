@@ -113,12 +113,11 @@ def drawMusic(music_data):
                     f'data:image/png;base64,{encoded_image}')
 
     song_name = root.find(".//svg:*[@id='song-name']", namespaces)
-
     if song_name is not None:
         song_name.text = music_data[0]
     artist_name = root.find(f".//svg:*[@id='{'artist-name'}']", namespaces)
     if artist_name is not None:
-        artist_name = music_data[1]
+        artist_name.text = music_data[1]
     album_name = root.find(f".//svg:*[@id='{'album-name'}']", namespaces)
     if album_name is not None:
         album_name.text = music_data[2]

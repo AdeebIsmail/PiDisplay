@@ -118,13 +118,7 @@ def drawMusic(music_data):
         song_name.text = music_data[0]
     artist_name = root.find(f".//svg:*[@id='{'artist-name'}']", namespaces)
     if artist_name is not None:
-        if (len(music_data[1]) != 1):
-            artist_string = ""
-            for artist in music_data[1]:
-                artist_string += (artist + ', ')
-            artist_name.text = artist_string
-        else:
-            artist_name.text = music_data[1][0]
+        artist_name = music_data[1]
     album_name = root.find(f".//svg:*[@id='{'album-name'}']", namespaces)
     if album_name is not None:
         album_name.text = music_data[2]

@@ -50,3 +50,6 @@ def musicData():
         print(f"Request to LastFM API timed out.: {e}")
         time.sleep(60)
         return None
+
+
+print(musicData())

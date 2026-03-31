@@ -44,7 +44,7 @@ def musicData():
             album_art = song_album.get_cover_image()
             return [song_name, song_artist, album_name, album_art]
 
-        return [song_name, song_artist, "", ""]
+        return [song_name, song_artist, "", None]
 
     except Exception as e:
         print(f"Request to LastFM API timed out.: {e}")

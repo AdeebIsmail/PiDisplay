@@ -96,21 +96,23 @@ def drawMusic(music_data):
     root = tree.getroot()
     namespaces = {'svg': 'http://www.w3.org/2000/svg'}
 
-    response = requests.get(url)
-    response.raise_for_status()
-    image = Image.open(BytesIO(response.content))
-    bw_image = image.convert('1')
-
-    resized_image = bw_image.resize((388, 300))  # Example size (300x300)
-    resized_image.save("images/album_image.png", format='PNG')
     element = root.find(f".//svg:image[@id='{'album-art'}']", namespaces)
 
-    with open("images/album_image.png", 'rb') as image_file:
-        encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+    if url:
+        response = requests.get(url)
+        response.raise_for_status()
+        image = Image.open(BytesIO(response.content))
+        bw_image = image.convert('1')
 
-    if element is not None:
-        element.set('{http://www.w3.org/1999/xlink}href',
-                    f'data:image/png;base64,{encoded_image}')
+        resized_image = bw_image.resize((388, 300))
+        resized_image.save("images/album_image.png", format='PNG')
+
+        with open("images/album_image.png", 'rb') as image_file:
+            encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+
+        if element is not None:
+            element.set('{http://www.w3.org/1999/xlink}href',
+                        f'data:image/png;base64,{encoded_image}')
 
     song_name = root.find(".//svg:*[@id='song-name']", namespaces)
     if song_name is not None:

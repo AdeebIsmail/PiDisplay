@@ -98,23 +98,28 @@ def drawMusic(music_data):
 
     element = root.find(f".//svg:image[@id='{'album-art'}']", namespaces)
 
-    if url:
-        response = requests.get(url)
-        response.raise_for_status()
-        image = Image.open(BytesIO(response.content))
-        bw_image = image.convert('1')
+    try:
+        if url:
+            response = requests.get(url)
+            response.raise_for_status()
+            image = Image.open(BytesIO(response.content))
+            bw_image = image.convert('1')
 
-        resized_image = bw_image.resize((388, 300))
-        resized_image.save("images/album_image.png", format='PNG')
+            resized_image = bw_image.resize((388, 300))
+            resized_image.save("images/album_image.png", format='PNG')
 
-        with open("images/album_image.png", 'rb') as image_file:
-            encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+            with open("images/album_image.png", 'rb') as image_file:
+                encoded_image = base64.b64encode(
+                    image_file.read()).decode('utf-8')
 
-        if element is not None:
-            element.set('{http://www.w3.org/1999/xlink}href',
-                        f'data:image/png;base64,{encoded_image}')
+            if element is not None:
+                element.set('{http://www.w3.org/1999/xlink}href',
+                            f'data:image/png;base64,{encoded_image}')
+    except requests.exceptions.HTTPError as err:
+        print(f"HTTP error occurred: {err}")
 
     song_name = root.find(".//svg:*[@id='song-name']", namespaces)
+
     if song_name is not None:
         song_name.text = music_data[0]
     artist_name = root.find(f".//svg:*[@id='{'artist-name'}']", namespaces)

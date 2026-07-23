@@ -100,7 +100,7 @@ def drawMusic(music_data):
 
     try:
         if url:
-            response = requests.get(url)
+            response = requests.get(url, timeout=10)
             response.raise_for_status()
             image = Image.open(BytesIO(response.content))
             bw_image = image.convert('1')
@@ -115,8 +115,10 @@ def drawMusic(music_data):
             if element is not None:
                 element.set('{http://www.w3.org/1999/xlink}href',
                             f'data:image/png;base64,{encoded_image}')
-    except requests.exceptions.HTTPError as err:
-        print(f"HTTP error occurred: {err}")
+    except requests.exceptions.RequestException as err:
+        print(f"Music album art fetch failed: {err}")
+    except OSError as err:
+        print(f"Music album art processing failed: {err}")
 
     song_name = root.find(".//svg:*[@id='song-name']", namespaces)
 

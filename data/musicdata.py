@@ -47,9 +47,6 @@ def musicData():
         return [song_name, song_artist, "", None]
 
     except Exception as e:
-        print(f"Request to LastFM API timed out.: {e}")
+        print(f"Request to LastFM API failed: {e}")
         time.sleep(60)
         return None
-
-
-print(musicData())

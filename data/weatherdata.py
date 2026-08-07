@@ -4,14 +4,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 api_key = os.getenv('WEATHER_KEY')
+city = os.getenv("CITY")
 
 
 def getWeatherType():
-    CITY = 'College Station'
 
     params = {
         'access_key': api_key,
-        'query': CITY,
+        'query': city,
         'units': 'f'
     }
 
@@ -31,7 +31,7 @@ def getWeatherType():
         weather_condition = data['current']['weather_descriptions'][0]
         print(f"Temperature: {temperature}°F")
         print(f"Weather condition: {weather_condition}")
-        return [temperature, CITY, weather_condition]
+        return [temperature, city, weather_condition]
 
     except requests.exceptions.RequestException as e:
         print(f"Error fetching weather data: {e}")
